@@ -232,7 +232,7 @@ const String kEditorHtml = r'''
       window.__setEditorContent = function(html) {
         _programmatic = true;
         setHtml(html);
-        _programmatic = false;
+        setTimeout(function() { _programmatic = false; }, 50);
       };
       window.__getEditorContent = function() { return getHtml(); };
 

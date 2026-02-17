@@ -1,3 +1,10 @@
+## 1.0.10
+
+- **Edit mode (controller.text / setHtml): stronger guards so content and onHtmlChanged keep working.**
+- Dart: keep `_settingHtml` true for 250ms after `runJavaScript` completes so delayed WebView messages cannot overwrite `_currentHtml`.
+- Dart: do not accept empty from the editor for 400ms after a programmatic set (avoids spurious empty overwrites).
+- JS: clear `_programmatic` in `setTimeout(..., 50)` so async `input` events after `innerHTML` assignment do not send stale/empty content.
+
 ## 1.0.9
 
 - **Fixed `controller.text` returning empty in edit mode and `onHtmlChanged` firing only once then stopping.**
