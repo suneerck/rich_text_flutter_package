@@ -1,5 +1,5 @@
 name: rich_text_editor_example
-description: Example app for rich_text_editor package.
+description: Example app for rich_text_flutter package.
 publish_to: "none"
 version: 0.0.0
 
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  rich_text_editor:
+  rich_text_flutter:
     path: ..
 
 dev_dependencies:

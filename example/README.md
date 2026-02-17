@@ -1,6 +1,6 @@
 # rich_text_editor_example
 
-Example app for the [rich_text_editor](https://github.com/suneerck/rich_text_flutter_package) package.
+Example app for the [rich_text_flutter](https://github.com/suneerck/rich_text_flutter_package) package.
 
 ## Run the example
 
@@ -15,7 +15,7 @@ flutter run
 
 **Do not run `flutter pub publish` from this directory.** This folder is the example app, not the package.
 
-To publish the **rich_text_editor** package to pub.dev, run from the **package root** (the folder that contains this `example/` folder):
+To publish the **rich_text_flutter** package to pub.dev, run from the **package root** (the folder that contains this `example/` folder):
 
 ```bash
 cd ..

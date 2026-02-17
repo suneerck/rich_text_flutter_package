@@ -22,7 +22,7 @@
 /// final html = await controller.getHtml();
 /// await controller.setHtml('<p>New content</p>');
 /// ```
-library rich_text_editor;
+library rich_text_flutter;
 
 export 'src/rich_text_editor_controller.dart';
 export 'src/rich_text_editor_widget.dart';

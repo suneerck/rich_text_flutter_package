@@ -1,4 +1,4 @@
-# rich_text_editor
+# rich_text_flutter
 
 A cross-platform Flutter rich text editor with **HTML input and HTML output**. Same content model as the web: you pass in HTML and get HTML back. Works on **Android**, **iOS**, **Web**, **macOS**, and **Windows** (where WebView is supported).
 
@@ -25,8 +25,8 @@ For **Web** and **Windows**, add the corresponding implementation to your app’
 dependencies:
   flutter:
     sdk: flutter
-  rich_text_editor:
-    path: ../rich_text_editor   # or from pub
+  rich_text_flutter:
+    path: ../rich_text_flutter   # or from pub
   webview_flutter: ^4.10.0
   # For Web:
   webview_flutter_web: ^0.2.0
@@ -40,10 +40,10 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  rich_text_editor:
-    path: /path/to/rich_text_editor   # local
+  rich_text_flutter:
+    path: /path/to/rich_text_flutter   # local
   # or when published:
-  # rich_text_editor: ^1.0.0
+  # rich_text_flutter: ^1.0.0
 ```
 
 Then:
@@ -57,7 +57,7 @@ flutter pub get
 ### Basic
 
 ```dart
-import 'package:rich_text_editor/rich_text_editor.dart';
+import 'package:rich_text_flutter/rich_text_flutter.dart';
 
 final controller = RichTextEditorController(
   initialHtml: '<p>Hello <b>world</b></p>',
@@ -119,6 +119,14 @@ Run the example app:
 
 ```bash
 cd example && flutter run
+```
+
+## Publishing to pub.dev
+
+Publish from the **package root** (this directory). You should see **"Publishing rich_text_flutter 1.0.0"**:
+
+```bash
+flutter pub publish
 ```
 
 ## License

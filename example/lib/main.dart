@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rich_text_editor/rich_text_editor.dart';
+import 'package:rich_text_flutter/rich_text_flutter.dart';
 
 void main() => runApp(const MyApp());
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rich_text_editor/rich_text_editor.dart';
+import 'package:rich_text_flutter/rich_text_flutter.dart';
 
 void main() {
   group('RichTextEditorController', () {
