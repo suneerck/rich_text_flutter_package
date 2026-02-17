@@ -1,6 +1,10 @@
+## 1.0.6
+
+- Fixed `invalid_use_of_protected_member` warning that prevented `controller.text` from syncing with live editor content.
+
 ## 1.0.5
 
-- Fixed `controller.text` not reflecting user edits — the getter now stays in sync with live editor content.
+- Added `updateFromEditor` so `controller.text` stays in sync with user edits in the editor.
 
 ## 1.0.4
 
