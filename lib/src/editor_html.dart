@@ -215,7 +215,10 @@ const String kEditorHtml = r'''
       function setHtml(html) { editor.innerHTML = html || ""; }
 
       var _lastSentHtml = "";
+      var _ignoreChanges = false;
+
       function sendToFlutter() {
+        if (_ignoreChanges) return;
         if (window.Editor && typeof window.Editor.postMessage === "function") {
           var html = getHtml();
           if (html !== _lastSentHtml) {
@@ -227,6 +230,7 @@ const String kEditorHtml = r'''
 
       var _sendTimer = null;
       function debouncedSend() {
+        if (_ignoreChanges) return;
         if (_sendTimer) clearTimeout(_sendTimer);
         _sendTimer = setTimeout(function() {
           _sendTimer = null;
@@ -241,8 +245,11 @@ const String kEditorHtml = r'''
       }
 
       window.__setEditorContent = function(html) {
+        _ignoreChanges = true;
         setHtml(html);
-        _lastSentHtml = html;
+        _lastSentHtml = getHtml();
+        if (_sendTimer) { clearTimeout(_sendTimer); _sendTimer = null; }
+        _ignoreChanges = false;
       };
       window.__getEditorContent = function() { return getHtml(); };
 

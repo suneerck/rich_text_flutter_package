@@ -1,3 +1,11 @@
+## 1.0.8
+
+- **Fixed `controller.text` returning empty after `setHtml` / `text =` in edit mode.**
+  Race condition: WebView events could send stale empty content back to Flutter
+  while `setHtml` was still in flight, overwriting `_currentHtml`.
+- Added `_settingHtml` guard on the Dart side — `updateFromEditor` is skipped while a programmatic `setHtml` is in progress.
+- Added `_ignoreChanges` guard on the JS side — `sendToFlutter` is suppressed during `__setEditorContent` to prevent any intermediate/empty event from leaking.
+
 ## 1.0.7
 
 - Made `controller.text` sync robust across all platforms by adding `MutationObserver`, `keyup`, `compositionend`, and `blur` event listeners alongside `input`.

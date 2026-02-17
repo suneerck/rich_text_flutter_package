@@ -17,6 +17,7 @@ class RichTextEditorController extends ChangeNotifier {
   String? _pendingHtml;
   String _currentHtml;
   bool _ready = false;
+  bool _settingHtml = false;
 
   /// Whether the WebView has loaded and is ready for script calls.
   bool get isReady => _ready;
@@ -30,6 +31,7 @@ class RichTextEditorController extends ChangeNotifier {
   /// You do not need to call this yourself — the [RichTextEditor] widget
   /// calls it automatically on every edit.
   void updateFromEditor(String html) {
+    if (_settingHtml) return;
     _currentHtml = html;
     notifyListeners();
   }
@@ -78,10 +80,12 @@ class RichTextEditorController extends ChangeNotifier {
       _pendingHtml = html;
       return;
     }
+    _settingHtml = true;
     final escaped = jsonEncode(html);
     await _webController!.runJavaScript(
       'window.__setEditorContent && window.__setEditorContent($escaped);',
     );
+    _settingHtml = false;
   }
 
   /// Get current editor content as HTML. Returns empty string if not ready.
