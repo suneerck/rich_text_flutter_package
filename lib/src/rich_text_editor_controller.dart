@@ -54,7 +54,7 @@ class RichTextEditorController extends ChangeNotifier {
       'window.__getEditorContent ? window.__getEditorContent() : "";',
     );
     if (result is String) return result;
-    return result?.toString() ?? '';
+    return result.toString();
   }
 
   /// Clear the editor content.
