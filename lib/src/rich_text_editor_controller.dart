@@ -24,6 +24,14 @@ class RichTextEditorController extends ChangeNotifier {
   /// Pending HTML to apply when the WebView attaches (e.g. from constructor).
   String? get pendingHtml => _pendingHtml;
 
+  /// Called internally by the editor widget when the user edits content.
+  /// Updates the cached [text] value without sending it back to the WebView.
+  @protected
+  void updateFromEditor(String html) {
+    _currentHtml = html;
+    notifyListeners();
+  }
+
   /// The current HTML content of the editor.
   ///
   /// **Getter** – returns the last value set via this property, [setHtml],

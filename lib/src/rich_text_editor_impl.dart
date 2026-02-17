@@ -56,6 +56,7 @@ class _RichTextEditorImplState extends State<RichTextEditorImpl> {
   }
 
   void _onEditorMessage(JavaScriptMessage message) {
+    widget.controller.updateFromEditor(message.message);
     widget.onHtmlChanged?.call(message.message);
   }
 

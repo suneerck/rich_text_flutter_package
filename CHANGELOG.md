@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Fixed `controller.text` not reflecting user edits — the getter now stays in sync with live editor content.
+
 ## 1.0.4
 
 - Fixed editor internal scroll not working when placed inside a scrollable parent (`SingleChildScrollView`, `ListView`, etc.).
