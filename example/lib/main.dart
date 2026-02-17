@@ -63,7 +63,10 @@ class _EditorScreenState extends State<EditorScreen> {
           ),
         ],
       ),
-      body: Padding(
+      body: 
+      SingleChildScrollView(
+        child: 
+      Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -73,15 +76,14 @@ class _EditorScreenState extends State<EditorScreen> {
               style: TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 12),
-            Expanded(
-              child: RichTextEditor(
+            RichTextEditor(
                 controller: _controller,
                 initialHtml: '<p>Type here…</p>',
                 onHtmlChanged: (html) {
                   setState(() => _lastHtml = html);
                 },
                 minHeight: 200,
-              ),
+                maxHeight: 200,
             ),
             if (_lastHtml.isNotEmpty) ...[
               const SizedBox(height: 12),
@@ -106,6 +108,7 @@ class _EditorScreenState extends State<EditorScreen> {
             ],
           ],
         ),
+      ),
       ),
     );
   }

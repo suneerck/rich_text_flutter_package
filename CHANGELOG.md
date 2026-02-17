@@ -1,3 +1,8 @@
+## 1.0.3
+
+- Fixed editor not scrolling when content exceeds visible area.
+- Toolbar now stays pinned at the top with internal scroll for the editor body.
+
 ## 1.0.2
 
 - Added synchronous `text` getter/setter on `RichTextEditorController` for convenience (works like `TextEditingController.text`).

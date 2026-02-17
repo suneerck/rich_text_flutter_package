@@ -8,13 +8,20 @@ const String kEditorHtml = r'''
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * { box-sizing: border-box; }
-    body {
+    html, body {
       margin: 0;
-      padding: 8px;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 16px;
       color: #202124;
       background: #fff;
+      padding: 8px;
     }
     #toolbar {
       display: flex;
@@ -22,7 +29,12 @@ const String kEditorHtml = r'''
       gap: 4px;
       padding: 6px 0;
       border-bottom: 1px solid #dadce0;
-      margin-bottom: 8px;
+      margin-bottom: 0;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
     }
     #toolbar button {
       min-width: 36px;
@@ -38,10 +50,12 @@ const String kEditorHtml = r'''
     #toolbar button:active { background: #e8eaed; }
     #toolbar button.active { background: #e8eaed; }
     #editor {
-      min-height: 120px;
+      flex: 1;
+      min-height: 0;
       padding: 12px;
       outline: none;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       line-height: 1.5;
     }
     #editor:empty::before { content: attr(data-placeholder); color: #80868b; }
