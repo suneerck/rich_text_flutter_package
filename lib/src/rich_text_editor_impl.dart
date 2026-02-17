@@ -13,6 +13,7 @@ class RichTextEditorImpl extends StatefulWidget {
     this.onHtmlChanged,
     this.decoration,
     this.minHeight = 120,
+    this.maxHeight,
     this.placeholder,
   });
 
@@ -21,6 +22,7 @@ class RichTextEditorImpl extends StatefulWidget {
   final ValueChanged<String>? onHtmlChanged;
   final BoxDecoration? decoration;
   final double minHeight;
+  final double? maxHeight;
   final String? placeholder;
 
   @override
@@ -83,18 +85,35 @@ class _RichTextEditorImplState extends State<RichTextEditorImpl> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: widget.decoration ??
-          BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            border: Border.all(
-              color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.5),
-            ),
-            borderRadius: BorderRadius.circular(8),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // When placed inside a scrollable (ListView, SingleChildScrollView, etc.),
+        // the parent provides unbounded height. Platform views like WebViewWidget
+        // cannot handle infinite height, so we clamp to a finite value.
+        final double effectiveMaxHeight = constraints.maxHeight.isFinite
+            ? constraints.maxHeight
+            : (widget.maxHeight ?? widget.minHeight);
+
+        return Container(
+          decoration: widget.decoration ??
+              BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                border: Border.all(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .outline
+                      .withValues(alpha: 0.5),
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+          clipBehavior: Clip.antiAlias,
+          constraints: BoxConstraints(
+            minHeight: widget.minHeight,
+            maxHeight: effectiveMaxHeight,
           ),
-      clipBehavior: Clip.antiAlias,
-      constraints: BoxConstraints(minHeight: widget.minHeight),
-      child: WebViewWidget(controller: _webController),
+          child: WebViewWidget(controller: _webController),
+        );
+      },
     );
   }
 }

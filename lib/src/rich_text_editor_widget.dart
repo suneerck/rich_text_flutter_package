@@ -16,6 +16,7 @@ class RichTextEditor extends StatelessWidget {
     this.onHtmlChanged,
     this.decoration,
     this.minHeight = 120,
+    this.maxHeight,
     this.placeholder,
   });
 
@@ -35,6 +36,13 @@ class RichTextEditor extends StatelessWidget {
   /// Minimum height of the editor area in logical pixels.
   final double minHeight;
 
+  /// Maximum height of the editor area in logical pixels.
+  ///
+  /// When the editor is placed inside a scrollable parent (e.g. [ListView]),
+  /// which provides unbounded height constraints, this value is used as the
+  /// editor's height. If not set, [minHeight] is used as the fallback.
+  final double? maxHeight;
+
   /// Placeholder is defined in the embedded editor; this is reserved for future use.
   final String? placeholder;
 
@@ -46,6 +54,7 @@ class RichTextEditor extends StatelessWidget {
       onHtmlChanged: onHtmlChanged,
       decoration: decoration,
       minHeight: minHeight,
+      maxHeight: maxHeight,
       placeholder: placeholder,
     );
   }
