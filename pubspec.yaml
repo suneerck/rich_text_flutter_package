@@ -1,9 +1,9 @@
 name: rich_text_editor
 description: A cross-platform Flutter rich text editor with HTML input and output. Supports web, iOS, Android, macOS, and Windows.
 version: 1.0.0
-homepage: https://github.com/yourusername/rich_text_editor
-repository: https://github.com/yourusername/rich_text_editor
-issue_tracker: https://github.com/yourusername/rich_text_editor/issues
+homepage: https://github.com/suneerck/rich_text_flutter_package
+repository: https://github.com/suneerck/rich_text_flutter_package
+issue_tracker: https://github.com/suneerck/rich_text_flutter_package/issues
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
