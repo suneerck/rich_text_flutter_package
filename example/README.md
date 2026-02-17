@@ -1,16 +1,23 @@
 # rich_text_editor_example
 
-A new Flutter project.
+Example app for the [rich_text_editor](https://github.com/suneerck/rich_text_flutter_package) package.
 
-## Getting Started
+## Run the example
 
-This project is a starting point for a Flutter application.
+From this directory:
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+flutter pub get
+flutter run
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Publishing the package
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Do not run `flutter pub publish` from this directory.** This folder is the example app, not the package.
+
+To publish the **rich_text_editor** package to pub.dev, run from the **package root** (the folder that contains this `example/` folder):
+
+```bash
+cd ..
+flutter pub publish
+```

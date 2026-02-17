@@ -1,6 +1,7 @@
 name: rich_text_editor_example
 description: Example app for rich_text_editor package.
 publish_to: "none"
+version: 0.0.0
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
