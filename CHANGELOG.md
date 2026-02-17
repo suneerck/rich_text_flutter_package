@@ -1,10 +1,10 @@
-## 1.0.8
+## 1.0.9
 
-- **Fixed `controller.text` returning empty after `setHtml` / `text =` in edit mode.**
-  Race condition: WebView events could send stale empty content back to Flutter
-  while `setHtml` was still in flight, overwriting `_currentHtml`.
-- Added `_settingHtml` guard on the Dart side — `updateFromEditor` is skipped while a programmatic `setHtml` is in progress.
-- Added `_ignoreChanges` guard on the JS side — `sendToFlutter` is suppressed during `__setEditorContent` to prevent any intermediate/empty event from leaking.
+- **Fixed `controller.text` returning empty in edit mode and `onHtmlChanged` firing only once then stopping.**
+- Simplified JS change detection: removed dedup (`_lastSentHtml`) and debounce which could get stuck and silently block all subsequent change events.
+- `sendToFlutter` now always posts the current HTML — simple and reliable.
+- `_programmatic` flag in JS suppresses events only during `__setEditorContent` (synchronous).
+- Dart-side `_settingHtml` guard skips the entire `_onEditorMessage` handler while `setHtml` is in flight, preventing stale/empty content from overwriting `_currentHtml`.
 
 ## 1.0.7
 

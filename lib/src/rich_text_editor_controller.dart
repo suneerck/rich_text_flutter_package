@@ -22,6 +22,10 @@ class RichTextEditorController extends ChangeNotifier {
   /// Whether the WebView has loaded and is ready for script calls.
   bool get isReady => _ready;
 
+  /// Whether a programmatic [setHtml] is currently in progress.
+  /// Used internally by the editor widget to skip echo events.
+  bool get isSettingHtml => _settingHtml;
+
   /// Pending HTML to apply when the WebView attaches (e.g. from constructor).
   String? get pendingHtml => _pendingHtml;
 

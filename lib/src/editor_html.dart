@@ -214,28 +214,13 @@ const String kEditorHtml = r'''
       function getHtml() { return editor.innerHTML || ""; }
       function setHtml(html) { editor.innerHTML = html || ""; }
 
-      var _lastSentHtml = "";
-      var _ignoreChanges = false;
+      var _programmatic = false;
 
       function sendToFlutter() {
-        if (_ignoreChanges) return;
+        if (_programmatic) return;
         if (window.Editor && typeof window.Editor.postMessage === "function") {
-          var html = getHtml();
-          if (html !== _lastSentHtml) {
-            _lastSentHtml = html;
-            window.Editor.postMessage(html);
-          }
+          window.Editor.postMessage(getHtml());
         }
-      }
-
-      var _sendTimer = null;
-      function debouncedSend() {
-        if (_ignoreChanges) return;
-        if (_sendTimer) clearTimeout(_sendTimer);
-        _sendTimer = setTimeout(function() {
-          _sendTimer = null;
-          sendToFlutter();
-        }, 60);
       }
 
       function exec(cmd, val) {
@@ -245,33 +230,22 @@ const String kEditorHtml = r'''
       }
 
       window.__setEditorContent = function(html) {
-        _ignoreChanges = true;
+        _programmatic = true;
         setHtml(html);
-        _lastSentHtml = getHtml();
-        if (_sendTimer) { clearTimeout(_sendTimer); _sendTimer = null; }
-        _ignoreChanges = false;
+        _programmatic = false;
       };
       window.__getEditorContent = function() { return getHtml(); };
 
       /* ── Editor events ── */
       editor.addEventListener("input", sendToFlutter);
-      editor.addEventListener("keyup", debouncedSend);
+      editor.addEventListener("keyup", sendToFlutter);
       editor.addEventListener("compositionend", sendToFlutter);
-      editor.addEventListener("blur", sendToFlutter);
       editor.addEventListener("paste", function(e) {
         e.preventDefault();
         var html = (e.clipboardData || window.clipboardData).getData("text/html") ||
                    (e.clipboardData || window.clipboardData).getData("text/plain");
         document.execCommand("insertHTML", false, html || "");
         sendToFlutter();
-      });
-
-      /* ── MutationObserver: catches ALL DOM changes in the editor ── */
-      var observer = new MutationObserver(debouncedSend);
-      observer.observe(editor, {
-        childList: true,
-        subtree: true,
-        characterData: true
       });
 
       /* ── Simple command buttons ── */
