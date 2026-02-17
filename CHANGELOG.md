@@ -1,3 +1,9 @@
+## 1.0.7
+
+- Made `controller.text` sync robust across all platforms by adding `MutationObserver`, `keyup`, `compositionend`, and `blur` event listeners alongside `input`.
+- Deduplicates messages so the same HTML is not posted twice.
+- `__setEditorContent` now updates the sent-cache to prevent echo on `setHtml`.
+
 ## 1.0.6
 
 - Fixed `invalid_use_of_protected_member` warning that prevented `controller.text` from syncing with live editor content.

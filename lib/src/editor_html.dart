@@ -213,28 +213,58 @@ const String kEditorHtml = r'''
       /* ── Core helpers ── */
       function getHtml() { return editor.innerHTML || ""; }
       function setHtml(html) { editor.innerHTML = html || ""; }
+
+      var _lastSentHtml = "";
       function sendToFlutter() {
         if (window.Editor && typeof window.Editor.postMessage === "function") {
-          window.Editor.postMessage(getHtml());
+          var html = getHtml();
+          if (html !== _lastSentHtml) {
+            _lastSentHtml = html;
+            window.Editor.postMessage(html);
+          }
         }
       }
+
+      var _sendTimer = null;
+      function debouncedSend() {
+        if (_sendTimer) clearTimeout(_sendTimer);
+        _sendTimer = setTimeout(function() {
+          _sendTimer = null;
+          sendToFlutter();
+        }, 60);
+      }
+
       function exec(cmd, val) {
         document.execCommand(cmd, false, val || null);
         editor.focus();
         sendToFlutter();
       }
 
-      window.__setEditorContent = function(html) { setHtml(html); };
+      window.__setEditorContent = function(html) {
+        setHtml(html);
+        _lastSentHtml = html;
+      };
       window.__getEditorContent = function() { return getHtml(); };
 
       /* ── Editor events ── */
       editor.addEventListener("input", sendToFlutter);
+      editor.addEventListener("keyup", debouncedSend);
+      editor.addEventListener("compositionend", sendToFlutter);
+      editor.addEventListener("blur", sendToFlutter);
       editor.addEventListener("paste", function(e) {
         e.preventDefault();
         var html = (e.clipboardData || window.clipboardData).getData("text/html") ||
                    (e.clipboardData || window.clipboardData).getData("text/plain");
         document.execCommand("insertHTML", false, html || "");
         sendToFlutter();
+      });
+
+      /* ── MutationObserver: catches ALL DOM changes in the editor ── */
+      var observer = new MutationObserver(debouncedSend);
+      observer.observe(editor, {
+        childList: true,
+        subtree: true,
+        characterData: true
       });
 
       /* ── Simple command buttons ── */
