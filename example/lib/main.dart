@@ -63,20 +63,18 @@ class _EditorScreenState extends State<EditorScreen> {
           ),
         ],
       ),
-      body: 
-      SingleChildScrollView(
-        child: 
-      Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              'Edit below; input and output are HTML.',
-              style: TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 12),
-            RichTextEditor(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'Edit below; input and output are HTML.',
+                style: TextStyle(color: Colors.grey),
+              ),
+              const SizedBox(height: 12),
+              RichTextEditor(
                 controller: _controller,
                 initialHtml: '<p>Type here…</p>',
                 onHtmlChanged: (html) {
@@ -84,14 +82,16 @@ class _EditorScreenState extends State<EditorScreen> {
                 },
                 minHeight: 200,
                 maxHeight: 200,
-            ),
-            if (_lastHtml.isNotEmpty) ...[
-              const SizedBox(height: 12),
-              const Text('Last change (preview):', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 4),
-              SizedBox(
-                height: 80,
-                child: Container(
+              ),
+              if (_lastHtml.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                const Text(
+                  'Last change (preview):',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  height: 80,
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade100,
@@ -100,15 +100,17 @@ class _EditorScreenState extends State<EditorScreen> {
                   child: SingleChildScrollView(
                     child: SelectableText(
                       _lastHtml,
-                      style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ],
-          ],
+          ),
         ),
-      ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -111,7 +113,14 @@ class _RichTextEditorImplState extends State<RichTextEditorImpl> {
             minHeight: widget.minHeight,
             maxHeight: effectiveMaxHeight,
           ),
-          child: WebViewWidget(controller: _webController),
+          child: WebViewWidget(
+            controller: _webController,
+            gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+              Factory<EagerGestureRecognizer>(
+                () => EagerGestureRecognizer(),
+              ),
+            },
+          ),
         );
       },
     );

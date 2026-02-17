@@ -87,4 +87,78 @@ class RichTextEditorController extends ChangeNotifier {
 
   /// Clear the editor content.
   Future<void> clear() => setHtml('');
+
+  // ── Programmatic formatting commands ──
+
+  Future<void> _exec(String command, [String? value]) async {
+    if (_webController == null || !_ready) return;
+    final escaped = value != null ? jsonEncode(value) : 'null';
+    await _webController!.runJavaScript(
+      'document.execCommand("$command", false, $escaped);',
+    );
+  }
+
+  /// Toggle bold on the current selection.
+  Future<void> toggleBold() => _exec('bold');
+
+  /// Toggle italic on the current selection.
+  Future<void> toggleItalic() => _exec('italic');
+
+  /// Toggle underline on the current selection.
+  Future<void> toggleUnderline() => _exec('underline');
+
+  /// Toggle strikethrough on the current selection.
+  Future<void> toggleStrikethrough() => _exec('strikeThrough');
+
+  /// Toggle subscript on the current selection.
+  Future<void> toggleSubscript() => _exec('subscript');
+
+  /// Toggle superscript on the current selection.
+  Future<void> toggleSuperscript() => _exec('superscript');
+
+  /// Insert or toggle a bullet (unordered) list.
+  Future<void> insertUnorderedList() => _exec('insertUnorderedList');
+
+  /// Insert or toggle a numbered (ordered) list.
+  Future<void> insertOrderedList() => _exec('insertOrderedList');
+
+  /// Increase indent level of the current block.
+  Future<void> indent() => _exec('indent');
+
+  /// Decrease indent level of the current block.
+  Future<void> outdent() => _exec('outdent');
+
+  /// Set the block format (e.g. 'p', 'h1', 'h2', 'h3', 'blockquote', 'pre').
+  Future<void> formatBlock(String tag) => _exec('formatBlock', tag);
+
+  /// Align text left.
+  Future<void> alignLeft() => _exec('justifyLeft');
+
+  /// Align text center.
+  Future<void> alignCenter() => _exec('justifyCenter');
+
+  /// Align text right.
+  Future<void> alignRight() => _exec('justifyRight');
+
+  /// Set the foreground (text) color. Accepts hex (e.g. '#ff0000').
+  Future<void> setTextColor(String hexColor) => _exec('foreColor', hexColor);
+
+  /// Set the background (highlight) color. Accepts hex (e.g. '#ffff00').
+  Future<void> setHighlightColor(String hexColor) =>
+      _exec('hiliteColor', hexColor);
+
+  /// Set the font family (e.g. 'serif', 'monospace').
+  Future<void> setFontFamily(String family) => _exec('fontName', family);
+
+  /// Insert a horizontal rule at the cursor.
+  Future<void> insertHorizontalRule() => _exec('insertHorizontalRule');
+
+  /// Insert a link wrapping the current selection.
+  Future<void> insertLink(String url) => _exec('createLink', url);
+
+  /// Insert an image at the cursor position by URL.
+  Future<void> insertImage(String url) => _exec('insertImage', url);
+
+  /// Remove all formatting from the current selection.
+  Future<void> clearFormatting() => _exec('removeFormat');
 }

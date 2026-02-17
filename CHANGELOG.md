@@ -1,3 +1,8 @@
+## 1.0.4
+
+- Fixed editor internal scroll not working when placed inside a scrollable parent (`SingleChildScrollView`, `ListView`, etc.).
+- Uses `EagerGestureRecognizer` so the WebView correctly claims touch events in nested scroll scenarios.
+
 ## 1.0.3
 
 - Fixed editor not scrolling when content exceeds visible area.
