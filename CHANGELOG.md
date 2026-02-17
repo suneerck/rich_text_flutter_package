@@ -1,3 +1,12 @@
+## 1.0.2
+
+- Added synchronous `text` getter/setter on `RichTextEditorController` for convenience (works like `TextEditingController.text`).
+- Can now set content before the WebView loads: `controller.text = 'Hello';`.
+
+## 1.0.1
+
+- Documentation and metadata improvements.
+
 ## 1.0.0
 
 - Initial release.
